@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "961543001128",
+    "firebase_url": "https://openpager-5a60b.firebaseio.com",
+    "project_id": "openpager-5a60b",
+    "storage_bucket": "openpager-5a60b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961543001128:android:f953d0ceccab6e58",
+        "android_client_info": {
+          "package_name": "de.openfiresource.flutteropenpager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961543001128-qvaj056clle6007jbcf81kf0f3o2msps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqWRSkMiHYLBHMo7wBpGsjSsVPQNR9mrU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
