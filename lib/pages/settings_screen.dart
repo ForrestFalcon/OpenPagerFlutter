@@ -13,7 +13,9 @@ class SettingsScreen extends StatefulWidget {
 
 class SettingsState extends State<SettingsScreen> {
   bool _active = false;
-  String _alarmTimeout = "";
+  bool _vibrate = false;
+  bool _tts = false;
+  String _ttsVolume = "";
 
   StreamSubscription isActiveSubscription;
 
@@ -33,12 +35,22 @@ class SettingsState extends State<SettingsScreen> {
         _active = value;
       });
     });
+    isActiveSubscription = PreferencesAppModel().vibrate.listen((value) {
+      setState(() {
+        _vibrate = value;
+      });
+    });
+    isActiveSubscription = PreferencesAppModel().tts.listen((value) {
+      setState(() {
+        _tts = value;
+      });
+    });
 
-//    PreferencesAppModel().alarmTimeout.listen((value) {
-//      setState(() {
-//        _alarmTimeout = value.toString() + " Sekunden";
-//      });
-//    });
+    PreferencesAppModel().ttsVolume.listen((value) {
+      setState(() {
+        _ttsVolume = (value * 100).round().toString() + " %";
+      });
+    });
 
     super.initState();
   }
@@ -57,22 +69,31 @@ class SettingsState extends State<SettingsScreen> {
         SwitchListTile(
           value: _active,
           onChanged: (value) => PreferencesAppModel().isActive.add(value),
-          title: Text("Dienst aktivieren"),
-          subtitle: Text("Warnung: Wenn deaktiviert werden keine Nachrichten empfangen!"),
+          title: Text("Alarm empfangen"),
+          subtitle: Text("Warnung: Wenn deaktiviert werden keine Alarme mehr empfangen!"),
+        ),
+        Divider(),
+        SwitchListTile(
+          value: _vibrate,
+          title: Text('Vibration'),
+          subtitle: Text('Vibrieren bei Alarmempfang.'),
+          onChanged: (value) => PreferencesAppModel().vibrate.add(value),
+        ),
+        Divider(),
+        SwitchListTile(
+          value: _tts,
+          title: Text('Alarmtitel vorlesen'),
+          onChanged: (value) => PreferencesAppModel().tts.add(value),
         ),
         Divider(),
         ListTile(
-          title: Text('Alarm Timeout'),
-          subtitle: Text(_alarmTimeout),
+          title: Text('Vorlesen Lautstärke'),
+          subtitle: Text(_ttsVolume),
           onTap: () => _createAlarmTimeout(context),
         ),
         Divider(),
         ListTile(
-          title: Text('Alarmkarten'),
-        ),
-        Divider(),
-        ListTile(
-          title: Text('FCM Push Token'),
+          title: Text('FCM-Key'),
           onTap: () async {
             var token = await FirebaseManager().firebaseMessaging.getToken();
             Share.share(token);
@@ -105,23 +126,30 @@ class SettingsState extends State<SettingsScreen> {
             shrinkWrap: true,
             children: <Widget>[
               ListTile(
-                title: Text("10 Sekunden"),
+                title: Text("25 %"),
                 onTap: () {
-                  PreferencesAppModel().alarmTimeout.add(10);
+                  PreferencesAppModel().ttsVolume.add(0.25);
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text("30 Sekunden"),
+                title: Text("50 %"),
                 onTap: () {
-                  PreferencesAppModel().alarmTimeout.add(30);
+                  PreferencesAppModel().ttsVolume.add(0.5);
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text("60 Sekunden"),
+                title: Text("75 %"),
                 onTap: () {
-                  PreferencesAppModel().alarmTimeout.add(60);
+                  PreferencesAppModel().ttsVolume.add(0.75);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text("100 %"),
+                onTap: () {
+                  PreferencesAppModel().ttsVolume.add(1.0);
                   Navigator.pop(context);
                 },
               ),

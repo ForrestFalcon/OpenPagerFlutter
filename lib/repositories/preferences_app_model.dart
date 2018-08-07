@@ -7,7 +7,9 @@ class PreferencesAppModel {
   static final PreferencesAppModel _singleton = new PreferencesAppModel._internal();
 
   BehaviorSubject<bool> isActive = new BehaviorSubject<bool>(seedValue: true);
-  BehaviorSubject<int> alarmTimeout = new BehaviorSubject<int>(seedValue: 30);
+  BehaviorSubject<bool> vibrate = new BehaviorSubject<bool>(seedValue: true);
+  BehaviorSubject<bool> tts = new BehaviorSubject<bool>(seedValue: true);
+  BehaviorSubject<double> ttsVolume = new BehaviorSubject<double>(seedValue: 1.0);
 
   PreferencesAppModel._internal() {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -16,8 +18,14 @@ class PreferencesAppModel {
       var isActive = pref.getBool("isActive");
       if (isActive != null) this.isActive.add(isActive);
 
-      int alarmTimeout = pref.getInt("alarmTimeout");
-      if (alarmTimeout != null) this.alarmTimeout.add(alarmTimeout);
+      var vibrate = pref.getBool("vibrate");
+      if (vibrate != null) this.vibrate.add(isActive);
+
+      var tts = pref.getBool("tts");
+      if (tts != null) this.tts.add(isActive);
+
+      double ttsVolume = pref.getDouble("ttsVolume");
+      if (ttsVolume != null) this.ttsVolume.add(ttsVolume);
     });
 
     isActive.distinct().listen((data) async {
@@ -25,9 +33,19 @@ class PreferencesAppModel {
       prefs.setBool("isActive", data);
     });
 
-    alarmTimeout.distinct().listen((data) async {
+    vibrate.distinct().listen((data) async {
       SharedPreferences prefs = await _prefs;
-      prefs.setInt("alarmTimeout", data);
+      prefs.setBool("vibrate", data);
+    });
+
+    tts.distinct().listen((data) async {
+      SharedPreferences prefs = await _prefs;
+      prefs.setBool("tts", data);
+    });
+
+    ttsVolume.distinct().listen((data) async {
+      SharedPreferences prefs = await _prefs;
+      prefs.setDouble("ttsVolume", data);
     });
   }
 
