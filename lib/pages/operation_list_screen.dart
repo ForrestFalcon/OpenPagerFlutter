@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_open_pager/pages/settings_screen.dart';
 import 'package:flutter_open_pager/repositories/operation_app_model.dart';
 import 'package:flutter_open_pager/rx_widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OperationListWidget extends StatefulWidget {
   @override
@@ -40,6 +38,7 @@ class OperationListState extends State<OperationListWidget> {
 
   @override
   void initState() {
+    super.initState();
     OperationAppModel().getOperationsCommand.execute();
   }
 

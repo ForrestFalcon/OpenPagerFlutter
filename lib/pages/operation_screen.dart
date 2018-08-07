@@ -8,11 +8,10 @@ import 'package:flutter_open_pager/models/operation_model.dart';
 import 'package:latlong/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:duration/duration.dart';
-import 'package:duration/locale.dart';
 
 class OperationScreen extends StatelessWidget {
-  OperationModel model;
-  bool isAlarm;
+  final OperationModel model;
+  final bool isAlarm;
 
   OperationScreen({@required this.model, this.isAlarm});
 
@@ -34,8 +33,8 @@ class OperationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabs = [Tab(icon: Icon(Icons.info))];
-    List<Widget> body = [OperationInfoWidget(model, isAlarm)];
+    final List<Widget> tabs = [Tab(icon: Icon(Icons.info))];
+    final List<Widget> body = [OperationInfoWidget(model, isAlarm)];
 
     if (_hasCoords()) {
       tabs.add(Tab(icon: Icon(Icons.map)));
@@ -103,8 +102,8 @@ class OperationScreen extends StatelessWidget {
 }
 
 class OperationInfoWidget extends StatefulWidget {
-  OperationModel model;
-  bool isAlarm;
+  final OperationModel model;
+  final bool isAlarm;
 
   OperationInfoWidget(this.model, this.isAlarm);
 
@@ -151,7 +150,7 @@ class OperationInfoState extends State<OperationInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [
+    final List<Widget> children = [
       new Text(model.title, textAlign: TextAlign.center, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.5, fontWeightDelta: 2)),
       new Text(
         "Alarm vor $time",
