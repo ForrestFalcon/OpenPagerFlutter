@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_open_pager/german_duration_locale.dart';
 import 'package:flutter_open_pager/models/operation_model.dart';
+import 'package:flutter_open_pager/repositories/preferences_app_model.dart';
 import 'package:latlong/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:duration/duration.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class OperationScreen extends StatelessWidget {
   final OperationModel model;
@@ -97,7 +99,7 @@ class OperationScreen extends StatelessWidget {
   }
 
   bool _hasCoords() {
-    return this.model.destinationLng != 0 && this.model.destinationLat != 0;
+    return this.model.destinationLng != null && this.model.destinationLat != null;
   }
 }
 
@@ -116,6 +118,8 @@ class OperationInfoState extends State<OperationInfoWidget> {
   bool isAlarm;
 
   Timer timer;
+  FlutterTts flutterTts;
+
   String time = "XXX";
   Color timerColor = Colors.black;
 
@@ -128,6 +132,8 @@ class OperationInfoState extends State<OperationInfoWidget> {
 
     if (isAlarm) {
       timerColor = Colors.red;
+
+      speak();
     }
 
     super.initState();
@@ -136,6 +142,7 @@ class OperationInfoState extends State<OperationInfoWidget> {
   @override
   void dispose() {
     timer?.cancel();
+    flutterTts?.stop();
     super.dispose();
   }
 
@@ -146,6 +153,17 @@ class OperationInfoState extends State<OperationInfoWidget> {
     setState(() {
       this.time = prettyDuration(duration, locale: GermanDurationLocale(), delimiter: ', ');
     });
+  }
+
+  Future speak() async {
+    bool tts = await PreferencesAppModel().tts.first;
+    double volume = await PreferencesAppModel().ttsVolume.first;
+
+    if (tts) {
+      flutterTts = new FlutterTts();
+      flutterTts.setVolume(volume);
+      flutterTts.speak(model.message);
+    }
   }
 
   @override
@@ -169,6 +187,8 @@ class OperationInfoState extends State<OperationInfoWidget> {
       children.add(new RaisedButton(
         onPressed: () => setState(() {
               timerColor = Colors.black;
+              flutterTts?.stop();
+              isAlarm = false;
             }),
         child: Text('Alarm bestätigen'),
       ));

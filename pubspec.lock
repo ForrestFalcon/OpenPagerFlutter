@@ -105,7 +105,7 @@ packages:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -130,6 +130,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tts:
+    dependency: "direct main"
+    description:
+      name: flutter_tts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   front_end:
     dependency: transitive
     description:
@@ -221,13 +228,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3+1"
-  logging_handlers:
-    dependency: transitive
-    description:
-      name: logging_handlers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
   matcher:
     dependency: transitive
     description:
@@ -290,7 +290,7 @@ packages:
       name: platform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.2.0"
   plugin:
     dependency: transitive
     description:
@@ -353,7 +353,7 @@ packages:
       name: share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2"
+    version: "0.5.3"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -421,7 +421,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0+5"
+    version: "0.11.2+2"
   stack_trace:
     dependency: transitive
     description:
@@ -456,7 +456,7 @@ packages:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1"
+    version: "1.5.1+1"
   term_glyph:
     dependency: transitive
     description:
@@ -484,7 +484,7 @@ packages:
       name: tuple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -512,7 +512,7 @@ packages:
       name: validate
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.1"
   vector_math:
     dependency: transitive
     description:
@@ -549,5 +549,5 @@ packages:
     source: hosted
     version: "2.1.13"
 sdks:
-  dart: ">=2.0.0-dev.58 <=2.0.0-dev.58.0.flutter-f981f09760"
+  dart: ">=2.0.0-dev.58.0 <=2.0.0-dev.58.0.flutter-f981f09760"
   flutter: ">=0.1.4 <2.0.0"

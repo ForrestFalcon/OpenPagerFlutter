@@ -9,12 +9,15 @@ import 'package:flutter_open_pager/rx_widgets.dart';
 import 'package:intl/intl.dart';
 
 class OperationListWidget extends StatefulWidget {
+
+  OperationListWidget();
+  OperationListWidget.forDesignTime();
+
   @override
   OperationListState createState() => new OperationListState();
 }
 
 class OperationListState extends State<OperationListWidget> {
-
 
   OperationListState() {
     OperationAppModel().addOperationCommand.results.listen((model) {

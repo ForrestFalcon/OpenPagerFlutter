@@ -24,16 +24,16 @@ class FirebaseManager {
   init() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) {
-        print("ZEFIX! onMessage: $message");
+        print("onMessage: $message");
         if (message.containsKey("type") && message["type"] == "operation") {
           this._handleOperation(message);
         }
       },
       onLaunch: (Map<String, dynamic> message) {
-        print("ZEFIX! onLaunch: $message");
+        print("onLaunch: $message");
       },
       onResume: (Map<String, dynamic> message) {
-        print("ZEFIX! onResume: $message");
+        print("onResume: $message");
       },
     );
 
@@ -71,7 +71,9 @@ class FirebaseManager {
 
             model.destinationLat = double.parse(destParts[0]);
             model.destinationLng = double.parse(destParts[1]);
-          } catch (e) {}
+          } catch (e) {
+            print("Error: " + e);
+          }
           break;
         case "timestamp":
           try {
@@ -87,7 +89,9 @@ class FirebaseManager {
     OperationAppModel().addOperationCommand.execute(model);
 
     bool canVibrate = await Vibrate.canVibrate;
-    if (canVibrate) {
+    bool vibrate = await PreferencesAppModel().vibrate.first;
+
+    if (canVibrate && vibrate) {
       // Vibrate with pauses between each vibration
       final Iterable<Duration> pauses = [
         const Duration(milliseconds: 500),

@@ -20,6 +20,7 @@ dependencies:
   share: any
   intl: any
   flutter_map: any
+  flutter_tts: any
   vibrate: any
   duration: any
 
