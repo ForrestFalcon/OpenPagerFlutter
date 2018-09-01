@@ -31,9 +31,15 @@ class FirebaseManager {
       },
       onLaunch: (Map<String, dynamic> message) {
         print("onLaunch: $message");
+        if (message.containsKey("type") && message["type"] == "operation") {
+          this._handleOperation(message);
+        }
       },
       onResume: (Map<String, dynamic> message) {
         print("onResume: $message");
+        if (message.containsKey("type") && message["type"] == "operation") {
+          this._handleOperation(message);
+        }
       },
     );
 
